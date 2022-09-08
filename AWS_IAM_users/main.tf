@@ -1,4 +1,5 @@
 variable "iam_user_name_prefix" {
+  type = string #any, number, bool, set, list, object, tuple, map   
   default = "my_iam_user"
 }
 
