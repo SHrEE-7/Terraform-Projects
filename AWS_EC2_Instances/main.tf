@@ -1,5 +1,5 @@
 variable "aws_key" {
-  default = "S:/aws_keys/default-EC2.ppk"
+  default = "C:/aws_keys/default-EC2.pem"
 }
 
 provider "aws" {
@@ -59,7 +59,7 @@ resource "aws_instance" "http_server" {
     inline = [
       "sudo yum install httpd -y",
       "sudo systemctl start httpd",
-      "echo Hey..Welcome to my world..⚡ - This Server is at $(self.public_dns) | sudo tee /var/www/html/index.html"
+      "echo Hey..Welcome to my world..⚡ - This Server is at ${self.public_dns} | sudo tee /var/www/html/index.html"
     ]
   }
   tags = {
