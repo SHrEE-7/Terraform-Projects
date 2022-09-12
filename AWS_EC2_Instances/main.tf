@@ -1,7 +1,3 @@
-variable "aws_key" {
-  default = "C:/aws_keys/default-EC2.pem"
-}
-
 provider "aws" {
   region  = "ap-south-1"
   version = "~>4.30.0"
@@ -11,25 +7,6 @@ provider "aws" {
 
 resource "aws_default_vpc" "default" {
 }
-
-data "aws_subnet_ids" "default_subnets" {
-  vpc_id = aws_default_vpc.default.id
-}
-
-
-data "aws_ami_ids" "aws_linux_latest_ids" {
-  owners = ["amazon"]
-}
-
-data "aws_ami" "aws_linux_latest" {
-  most_recent = true
-  owners      = ["amazon"]
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm-*"]
-  }
-}
-
 
 resource "aws_security_group" "http_server_security_group" {
   name = "http_server_sg"
