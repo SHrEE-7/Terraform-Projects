@@ -9,9 +9,15 @@ provider "aws" {
 // HTTP server -> Security Group
 //Security Group --> 80 TCP, 22 TCP, CIDER ["0.0.0.0/0"]
 
+resource "aws_default_vpc" "default" {
+}
+
+
 resource "aws_security_group" "http_server_security_group" {
   name   = "http_server_sg"
-  vpc_id = "vpc-0c829482552a96725"
+  # vpc_id = "vpc-0c829482552a96725"
+  vpc_id = aws_default_vpc.default.id
+
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
     from_port   = 80
