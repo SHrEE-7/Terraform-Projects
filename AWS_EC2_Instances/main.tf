@@ -12,6 +12,10 @@ provider "aws" {
 resource "aws_default_vpc" "default" {
 }
 
+data "aws_subnet_ids" "default_subnets" {
+  vpc_id = aws_default_vpc.default.id
+}
+
 
 resource "aws_security_group" "http_server_security_group" {
   name   = "http_server_sg"
@@ -53,7 +57,8 @@ resource "aws_instance" "http_server" {
   key_name               = "default-EC2"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.http_server_security_group.id]
-  subnet_id              = "subnet-0146d7a69fe4e7ba0"
+  # subnet_id              = "subnet-0146d7a69fe4e7ba0"
+  subnet_id = tolist(data.aws_default_subnet_ids.default_subnets[0])
 
   connection {
     type        = "ssh"
